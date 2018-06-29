@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mental Model a Day</title>
+    <link rel="preload" href="mental_models.json" as="fetch">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:500" rel="stylesheet"> 
+    <style>
+        body {
+            background: url(nature.jpg) no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            padding: 0;
+        }
+        #todaysmodel {
+            margin: auto;
+            margin-top: 14vh;
+            max-width: 40em;
+            font-size: 16px;
+            color: #fff;
+            background: rgba(0,0,0,0.6);
+            padding: 30px 50px;
+            border-radius: 3px;
+        }
+        #todaysmodel h1 {
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        #todaysmodel h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 34px;
+            margin: 0 0 5px 0;
+        }
+        #todaysmodel p {
+            line-height: 200%;
+            font-size: 1em;
+        }
+        a, a:visited {
+            color: #eee;
+        }
+        a:hover {
+            color: #3d9;
+        }
+        a:active {
+            color: #eee;
+        }
+        .credit {
+            box-sizing: border-box;
+            position: fixed;
+            left:0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            font-size: 12px;
+            color: #aaa;
+            padding: 5px;
+        }
+        @media (max-width: 40em) {
+            #todaysmodel {
+                margin-top: 0;
+            }
+        }
+        @media (max-width: 50em) {
+            #todaysmodel {
+                margin-top: 5vh;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="todaysmodel"></div>
+<div class="credit">
+    Made with ♥ by <a href="https://jcuenod.github.io/">James Cuénod</a>. Want to contribute: <a href="https://github.com/jcuenod/craftbrew">code</a> / <a href="http://amzn.com/w/1CSZFFMO1C8DX">love</a>
+</div>
+<script>
+fetch('mental_models.json')
+    .then((response) => {
+        return response.json()
+    })
+    .then((models) => {
+
+
+        const now = new Date()
+        const current_index = Math.floor(now/8.64e7) % models.length
+
+        const payload = {
+            method: "POST",
+            body: models[current_index].model
+        }
+
+        document.querySelector("#todaysmodel").innerHTML = `
+<h1>${models[current_index].category}</h1>
+<h2>${models[current_index].model}</h2>
+<p>${models[current_index].description}</p>`
+
+
+    })
+</script>
+</body>
+</html>
